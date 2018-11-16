@@ -1,10 +1,11 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <script src="/js/jquery-1.8.3.min.js"></script>
     <script src="/js/jquery.form.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
      <style>
             .login {
                   float:right
@@ -21,13 +22,13 @@
                    height:300px;
             }
             table input {
-                   height:30px;
-                   width:500px;
+                   height:35px;
+                   width:730px;
                    text-align:left;
             }
             input[type="button"]{
                display: inline-block;
-               width:80px;
+               width:120px;
                height:40px;
                marign-top:10px;
                margin-left:300px
@@ -107,6 +108,13 @@
          }
 
        </script>
+       <script type="text/javascript">
+           //页面加载完成后初始化select2控件
+           $(function () {
+               $("#area").select2();
+           });
+       </script>
+
 </head>
 <body>
    <div class="head">
@@ -122,23 +130,21 @@
                      <div class="queryBody">
                          <table>
 
-                                 <tr><td><label for="url">URL:</label></td><td><input type="text" name="url" id="url"/></td></tr>
+                                 <tr><td><label for="url">URL:</label></td><td><input type="text" name="url"   id="url"/></td></tr>
                                  <tr><td><label for="api">API:</label></td><td>
-                                            <select name="api" onchange="getOption()" height="40px">
+                                            <select name="api" onchange="getOption()" height="40px" width="200px" id="area" class="select2">
                                                  <#list apiList as data>
                                                      <option value="${data.id!''}">${data.name!''}(${data.annotation!''})</option>
                                                  </#list>
                                             </select>
-
                                 </td></tr>
+                                <tr><td></td><td><div style="display:none;background-color:white" id="c"></div></td></tr>
                                 <tr><td><label for="app_code">APP_Code:</label></td><td><input type="text" name="app_code" id="app_code"/></td></tr>
                                 <tr><td><label for="app_secret">APP_SECRET:</label></td><td><input type="text" name="app_secret" id="app_secret"/></td></tr>
-
-                         </table>
+                          </table>
                      </div>
                      <div class="option">
-
-                      </div>
+                     </div>
                   </form>
             </div>
 

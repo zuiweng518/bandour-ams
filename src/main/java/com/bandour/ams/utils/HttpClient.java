@@ -48,7 +48,7 @@ public class HttpClient {
             }
             httpConnection.setRequestMethod(requestMethod);//需要输入
             httpConnection.setUseCaches(false);
-            httpConnection.addRequestProperty("app_code", map.get("app_code"));
+            httpConnection.addRequestProperty("app_code",map.get("app_code"));
             httpConnection.addRequestProperty("app_secret", map.get("app_secret"));
             map.remove("app_code");
             map.remove("app_secret");

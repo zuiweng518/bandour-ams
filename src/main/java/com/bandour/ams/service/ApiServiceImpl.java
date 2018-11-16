@@ -26,4 +26,9 @@ public class ApiServiceImpl implements ApiService {
         Api api = jdbc.queryForObject(sql, new ApiRow());
         return api;
     }
+    public List<Api> queryApiByName(String name){
+        String sql = "select * from api where name like '%"+name+"%'";
+        List<Api> list=jdbc.query(sql,new ApiRow());
+        return list;
+    }
 }

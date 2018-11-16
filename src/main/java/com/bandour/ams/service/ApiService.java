@@ -7,5 +7,6 @@ import java.util.List;
 public interface ApiService {
     List<Api> findAll();
     Api findById(int id);
+    List<Api> queryApiByName(String name);
 
 }

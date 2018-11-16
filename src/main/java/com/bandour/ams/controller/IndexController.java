@@ -26,13 +26,13 @@ import java.util.Map;
 @PropertySource("classpath:application.properties")
 public class IndexController {
     @Value("${app_code}")
-    private String app_code;
+    private String appCode;
     @Value("${app_secret}")
-    private String app_secret;
+    private String appSecret;
     @Value("${ams_url}")
-    private String ams_url;
+    private String amsUrl;
     @Value("${redirect_url}")
-    private String redirect_url;
+    private String redirectUrl;
     @Autowired
     private ApiService api;
 
@@ -44,7 +44,7 @@ public class IndexController {
         Object user = session.getAttribute("user");
         String code = request.getParameter("code");
         ModelAndView view = null;
-        String ssoUrl = ams_url + "/sso?app_code=" + app_code + "&app_secret=" + app_secret + "&redirect_uri=" + URLEncoder.encode(redirect_url, "UTF-8");
+        String ssoUrl = amsUrl + "/sso?app_code=" + appCode + "&app_secret=" + appSecret + "&redirect_uri=" + URLEncoder.encode(redirectUrl, "UTF-8");
         if (user == null && code == null) {
             view = new ModelAndView(new RedirectView(ssoUrl));
             return view;
@@ -52,10 +52,10 @@ public class IndexController {
 
         String api = "/rest/sso/getUser?code=" + code;
         Map<String, String> map = new HashMap<String, String>();
-        map.put("app_code", app_code);
-        map.put("app_secret", app_secret);
+        map.put("app_code", appCode);
+        map.put("app_secret", appSecret);
         map.put("api", api);
-        map.put("url", ams_url);
+        map.put("url", amsUrl);
         map.put("token", "token");
         HttpClient httpClient = new HttpClient();
         String userInfo = null;
@@ -70,12 +70,12 @@ public class IndexController {
         String error = json.get("error").toString();
         boolean flag = error.equals("null");
         if (!flag) {
-            //如果未获取到用户信息，则携带app_code,app_secret,redirect_uri跳转到AMS登陆页面；
+            //如果未获取到用户信息，则携带app_code,appSecret,redirect_uri跳转到AMS登陆页面；
             return new ModelAndView(new RedirectView(ssoUrl));
         }
         //获取用户信息后存入session;
         session.setAttribute("user", json.get("content"));
-        view = new ModelAndView(new RedirectView("/api/index"));
+        view = new ModelAndView(new RedirectView("/api/page"));
         return view;
 
     }
@@ -85,8 +85,8 @@ public class IndexController {
     public ModelAndView logout(HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();
         session.removeAttribute("user");
-        String ssoUrl = ams_url + "/sso?app_code=" + app_code + "&app_secret=" + app_secret + "&redirect_uri=" + URLEncoder.encode(redirect_url, "UTF-8");
-        String logout = "http://ams.bandour.com:888/ams/logout";
+        String ssoUrl = amsUrl + "/sso?appCode=" + appCode + "&appSecret=" + appSecret + "&redirect_uri=" + URLEncoder.encode(redirectUrl, "UTF-8");
+        String logout = "http://ams.bandour.cn/ams/logout";
         ModelAndView view = new ModelAndView(new RedirectView(logout));
         return view;
     }
