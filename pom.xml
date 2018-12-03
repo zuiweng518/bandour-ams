@@ -61,7 +61,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.35</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -109,7 +113,7 @@
                         </manifest>
                     </archive>
                     <outputDirectory>
-                        ${project.build.directory}/bandour-ams-${project.version}
+                        ${project.build.directory}/bandour-ams-api-${project.version}
                     </outputDirectory>
                     <excludes>
                         <exclude>*.properties</exclude>
@@ -131,7 +135,7 @@
                             <type>jar</type>
                             <includeTypes>jar</includeTypes>
                             <outputDirectory>
-                                ${project.build.directory}/bandour-ams-${project.version}/lib
+                                ${project.build.directory}/bandour-ams-api-${project.version}/lib
                             </outputDirectory>
                         </configuration>
                     </execution>

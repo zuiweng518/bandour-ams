@@ -6,6 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.net.URLEncoder;
 
 public class LoginInterceptor implements HandlerInterceptor {
 
@@ -16,10 +17,13 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (user != null) {
             return true;
         } else {
-
-            //String redirect_url= URLEncoder.encode( redirectUrl,"UTF-8");
-            //String ssoUrl=amsUrl+"app_code="+appCode+"&app_secret="+appSecret+"&redirect_uri="+redirect_url;
-            httpServletResponse.sendRedirect("/index");
+            String appCode="ams_api";
+            String appSecret="YParuwnZmnkSbi8GoQvJ4g";
+            String amsUrl="http://ams.bandour.cn/ams";
+            String redirectUrl="http://192.168.0.9/index";
+            String redirect_url= URLEncoder.encode( redirectUrl,"UTF-8");
+            String ssoUrl=amsUrl+"/sso?app_code="+appCode+"&app_secret="+appSecret+"&redirect_uri="+redirect_url;
+            httpServletResponse.sendRedirect(ssoUrl);
             return false;
         }
 

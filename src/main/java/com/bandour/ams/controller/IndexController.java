@@ -3,6 +3,7 @@ package com.bandour.ams.controller;
 
 import com.bandour.ams.service.ApiService;
 import com.bandour.ams.utils.HttpClient;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -75,7 +76,11 @@ public class IndexController {
         }
         //获取用户信息后存入session;
         session.setAttribute("user", json.get("content"));
-        view = new ModelAndView(new RedirectView("/api/page"));
+        String users=json.get("content").toString();
+
+        JSONObject account=new JSONObject(users);
+        System.out.println("Account:"+account.get("account"));
+        view = new ModelAndView(new RedirectView("/main/index"));
         return view;
 
     }
@@ -90,6 +95,7 @@ public class IndexController {
         ModelAndView view = new ModelAndView(new RedirectView(logout));
         return view;
     }
+
 
 
 }
